@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ai-context-engine"
+version = "0.1.0"
+description = "Provider-agnostic infrastructure for collecting, normalizing, versioning, validating, retrieving, and packaging context for AI applications and agents."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "AI Context Engine Contributors" }]
+keywords = ["ai", "context", "rag", "agents", "provenance", "versioning"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries",
+    "Typing :: Typed",
+]
+dependencies = [
+    "pydantic>=2.7,<3",
+]
+
+[project.optional-dependencies]
+embeddings = ["numpy>=1.26"]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "mypy>=1.9",
+    "ruff>=0.4",
+]
+
+[project.scripts]
+ctxeng = "context_engine.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/example/ai-context-engine"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/context_engine"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
