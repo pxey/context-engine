@@ -54,7 +54,7 @@ __all__ = [
     "ValidationIssue",
     "ValidationResult",
     "Validator",
+    "__version__",
     "detect_conflicts",
     "validate_item",
-    "__version__",
 ]
