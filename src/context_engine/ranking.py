@@ -10,8 +10,9 @@ model of their choice); the engine has no opinion on which one.
 from __future__ import annotations
 
 import re
-from datetime import datetime, timezone
-from typing import Callable, Protocol
+from collections.abc import Callable
+from datetime import UTC, datetime
+from typing import Protocol
 
 from .models import ContextItem
 
@@ -43,7 +44,7 @@ class KeywordRetriever:
         else:
             overlap = len(query_tokens & item_tokens) / len(query_tokens | item_tokens)
 
-        age_days = max((datetime.now(timezone.utc) - item.timestamp).total_seconds() / 86400.0, 0.0)
+        age_days = max((datetime.now(UTC) - item.timestamp).total_seconds() / 86400.0, 0.0)
         recency = 0.5 ** (age_days / self.recency_half_life_days) if self.recency_half_life_days > 0 else 1.0
 
         return (0.7 * overlap + 0.3 * recency) * item.confidence
